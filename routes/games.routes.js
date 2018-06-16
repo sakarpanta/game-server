@@ -12,8 +12,26 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/:id', function(req, res, next){
+router.get('/id/:id', function(req, res, next){
+    console.log('Got in :id');
     Game.findById(req.params.id, function(err, game){
+        if(err)
+            res.send(err);
+        res.json(game);
+    });
+});
+
+router.get('/todaysgame', function(req, res, next){
+    var currentTime = new Date();
+    var startOfToday = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+    var endOfToday =  new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate()+1);
+    console.log('Finding game for the date: '+startOfToday);
+    Game.find({
+        time: {
+            $gte: startOfToday,
+            $lte: endOfToday
+        }
+    }, function(err, game){
         if(err)
             res.send(err);
         res.json(game);
