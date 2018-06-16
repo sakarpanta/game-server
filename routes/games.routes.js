@@ -38,4 +38,24 @@ router.get('/todaysgame', function(req, res, next){
     });
 });
 
+router.post('/id/:id', function(req, res){
+    console.log('Got in post :id');
+
+    return Game.findById(req.params.id, function (err, game){
+        game.title      = req.body.title;
+        game.location   = req.body.location;
+        game.time       = req.body.time; 
+        game.players    = req.body.players;
+
+        return game.save(function (err) {
+            if (!err) {
+              console.log("updated");
+            } else {
+              console.log(err);
+            }
+            return res.send(game);
+        });
+    });
+});
+
 module.exports = router;
