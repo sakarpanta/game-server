@@ -26,7 +26,7 @@ router.get('/todaysgame', function(req, res, next){
     var startOfToday = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
     var endOfToday =  new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate()+1);
     console.log('Finding game for the date: '+startOfToday);
-    Game.find({
+    Game.findOne({
         time: {
             $gte: startOfToday,
             $lte: endOfToday
@@ -38,23 +38,27 @@ router.get('/todaysgame', function(req, res, next){
     });
 });
 
-router.post('/id/:id', function(req, res){
-    console.log('Got in post :id');
+/* Updating existing game */
+router.put('/id/:id', function(req, res, next){
+    Game.findByIdAndUpdate(req.params.id, req.body, function (err, post){
+        if (err) return next(err);
+        res.json(post);
+    });
+});
 
-    return Game.findById(req.params.id, function (err, game){
-        game.title      = req.body.title;
-        game.location   = req.body.location;
-        game.time       = req.body.time; 
-        game.players    = req.body.players;
+/* Creating a new game */
+router.post('/', function(req, res){
+    Game.create(req.body, function (err, post) {
+        if (err) return next(err);
+        res.json(post);
+    });
+});
 
-        return game.save(function (err) {
-            if (!err) {
-              console.log("updated");
-            } else {
-              console.log(err);
-            }
-            return res.send(game);
-        });
+/* Delete game */
+router.delete('/id/:id', function(req, res, next) {
+    Game.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+      if (err) return next(err);
+      res.json(post);
     });
 });
 
