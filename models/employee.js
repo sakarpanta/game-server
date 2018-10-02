@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var employeeSchema = new Schema({
-    name: String
+    name: String,
+    email: String
 });
 
-module.exports = mongoose.model('employee', employeeSchema, 'employee');
+module.exports = mongoose.model('employees', employeeSchema, 'employees');

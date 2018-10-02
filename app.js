@@ -9,7 +9,6 @@ var cors = require('cors');
 const config = require('./config');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var employeesRouter = require('./routes/employees.routes');
 var gamesRouter = require('./routes/games.routes');
 
@@ -39,7 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/api/employees', employeesRouter);
 app.use('/api/games', gamesRouter);
 

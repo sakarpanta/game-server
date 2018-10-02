@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/id/:id', function(req, res, next){
+router.get('/:id', function(req, res, next){
     console.log('Got in :id');
     Game.findById(req.params.id, function(err, game){
         if(err)
@@ -39,7 +39,7 @@ router.get('/todaysgame', function(req, res, next){
 });
 
 /* Updating existing game */
-router.put('/id/:id', function(req, res, next){
+router.put('/:id', function(req, res, next){
     Game.findByIdAndUpdate(req.params.id, req.body, function (err, post){
         if (err) return next(err);
         res.json(post);
@@ -55,7 +55,7 @@ router.post('/', function(req, res){
 });
 
 /* Delete game */
-router.delete('/id/:id', function(req, res, next) {
+router.delete('/:id', function(req, res, next) {
     Game.findByIdAndRemove(req.params.id, req.body, function (err, post) {
       if (err) return next(err);
       res.json(post);
