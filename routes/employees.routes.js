@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var employees_controller = require('../controllers/employees.controller.js');
+var employees_controller = require('../controllers/employees.controller');
 
 
 /* Return all employess */
