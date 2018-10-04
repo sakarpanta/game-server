@@ -11,12 +11,12 @@ exports.create = function(req, res) {
 
 /* Return games(s)
  * API URL: api/games/
- *			api/games?date=1538400600000 (epoch time for clients' start of day)
+ *			api/games?timestamp=1538400600000 (epoch time for clients' start of day)
 */
 exports.find = function(req, res) {
-  if(req.query.date)
+  if(req.query.timestamp)
   {
-  	var date = new Date(parseInt(req.query.date));
+  	var date = new Date(parseInt(req.query.timestamp));
   	Game.find({ time: {
   		"$gte": date,
   		"$lte": new Date().setTime(date.getTime()+86400000)	

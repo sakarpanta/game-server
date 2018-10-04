@@ -13,6 +13,8 @@ var employeesRouter = require('./routes/employees.routes');
 var gamesRouter = require('./routes/games.routes');
 
 var app = express();
+app.disable('etag');
+
 
 //Set up default mongoose connection
 const { db: { host, port, name } } = config;
